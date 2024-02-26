@@ -50,17 +50,22 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Add User'),
-          content: Column(
-            children: <Widget>[
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(hintText: 'Name'),
-              ),
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(hintText: 'Email'),
-              ),
-            ],
+          content: SizedBox(
+            width: 250,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(hintText: 'Name'),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(hintText: 'Email'),
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             ElevatedButton(
