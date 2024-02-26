@@ -37,5 +37,26 @@ class UserController extends GetxController {
       print(e.toString());
     }
   }
-  
+
+  //store data
+  Future storeData(String name, String email) async {
+    try {
+      final response = await http.post(Uri.parse(baseUrl), headers: {
+        'adsignature': '$token',
+      }, body: {
+        'users_nm': name,
+        'users_email': email,
+      });
+      if (response.statusCode == 200) {
+        Get.snackbar('Success', 'User added successfully',
+            snackPosition: SnackPosition.BOTTOM);
+      } else {
+        throw Exception('Failed to store data');
+      }
+    } catch (e) {
+      print(e.toString());
+      Get.snackbar('Error', 'Failed to store data',
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
 }

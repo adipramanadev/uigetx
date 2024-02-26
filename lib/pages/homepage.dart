@@ -21,6 +21,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: Colors.blue,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showDialog(context);
+        },
+        child: Icon(Icons.add),
+      ),
       body: Obx(
         () => ListView.builder(
           itemCount: userController.users.length,
@@ -32,6 +38,44 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
+    );
+  }
+
+  //widget for dialog
+  void _showDialog(BuildContext context) {
+    TextEditingController nameController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Add User'),
+          content: Column(
+            children: <Widget>[
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(hintText: 'Name'),
+              ),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(hintText: 'Email'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('Add'),
+              onPressed: () {
+                userController.storeData(
+                  nameController.text,
+                  emailController.text,
+                );
+                Get.back();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

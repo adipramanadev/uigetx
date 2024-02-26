@@ -4,4 +4,3 @@ import 'package:uigetx/helper/usercontroller.dart';
 
 //ui
 part 'homepage.dart';
-part 'add.dart';
