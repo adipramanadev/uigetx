@@ -8,7 +8,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DbHelper dbHelper = DbHelper();
+  final UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,25 +21,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: FutureBuilder(
-        future: dbHelper.getData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
+      body: Obx(
+        () => ListView.builder(
+          itemCount: userController.users.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(userController.users[index]['users_nm']),
+              subtitle: Text(userController.users[index]['users_email']),
             );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          } else {
-            List<dynamic> users = snapshot.data;
-            return ListView.builder(
-              itemCount: users.length,
-              itemBuilder: (context, index) {},
-            );
-          }
-        },
+          },
+        ),
       ),
     );
   }
