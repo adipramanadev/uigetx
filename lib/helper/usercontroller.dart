@@ -11,12 +11,12 @@ class UserController extends GetxController {
     super.onInit();
   }
 
-  final String baseUrl = "https://dev-api.arminadaily.id/mobiledev/getall/";
+  final String getUrl = "https://dev-api.arminadaily.id/mobiledev/getall/";
   final String token = "TESTING";
 
   Future getData() async {
     try {
-      final response = await http.get(Uri.parse(baseUrl), headers: {
+      final response = await http.get(Uri.parse(getUrl), headers: {
         'adsignature': '$token',
       });
       if (response.statusCode == 200) {
@@ -38,10 +38,12 @@ class UserController extends GetxController {
     }
   }
 
+  final String storeUrl = "https://dev-api.arminadaily.id/mobiledev/create/";
+  
   //store data
   Future storeData(String name, String email) async {
     try {
-      final response = await http.post(Uri.parse(baseUrl), headers: {
+      final response = await http.post(Uri.parse(storeUrl), headers: {
         'adsignature': '$token',
       }, body: {
         'users_nm': name,
