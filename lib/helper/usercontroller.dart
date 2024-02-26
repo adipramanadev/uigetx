@@ -64,4 +64,30 @@ class UserController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
     }
   }
+
+  //delete function
+  Future<void> deleteData(String key_code) async {
+    final String deleteUrl = "https://dev-api.arminadaily.id/mobiledev/delete/";
+    try {
+      final response = await http.post(Uri.parse(deleteUrl), body: {
+        'key_code': '$key_code'
+      }, headers: {
+        'Accept': 'application/json',
+        'adsignature': '$token',
+      });
+
+      //response status
+      if (response.statusCode == 200) {
+        users.removeWhere((user) => user['key_code'] == key_code);
+        Get.snackbar('Success', 'User deleted successfully',
+            snackPosition: SnackPosition.BOTTOM);
+      } else {
+        throw Exception('Failed to delete data');
+      }
+    } catch (e) {
+      print(e.toString());
+      Get.snackbar('Error', 'Failed to delete data',
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
 }

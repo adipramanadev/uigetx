@@ -31,9 +31,29 @@ class _MyHomePageState extends State<MyHomePage> {
         () => ListView.builder(
           itemCount: userController.users.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(userController.users[index]['users_nm']),
-              subtitle: Text(userController.users[index]['users_email']),
+            var user = userController.users[index];
+            return Dismissible(
+              key: Key(user['users_id'].toString()),
+              onDismissed: (direction) {
+                //untuk fungsi delete
+                // userController.deleteData(user['users_id']).toString();
+                userController
+                    .deleteData(user['key_code'].toString())
+                    .then((_) => {
+                          userController.users.removeAt(index)
+                          // Get.snackbar('Success', 'User deleted successfully',
+                          //     snackPosition: SnackPosition.BOTTOM)
+                        });
+                userController.users.removeAt(index);
+              },
+              background: Container(
+                color: Colors.red,
+                child: Icon(Icons.delete),
+              ),
+              child: ListTile(
+                title: Text(userController.users[index]['users_nm']),
+                subtitle: Text(userController.users[index]['users_email']),
+              ),
             );
           },
         ),
