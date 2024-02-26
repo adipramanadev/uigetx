@@ -75,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   nameController.text,
                   emailController.text,
                 );
+                userController.getData();
                 Get.back();
               },
             ),
