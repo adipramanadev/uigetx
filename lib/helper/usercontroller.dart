@@ -39,9 +39,12 @@ class UserController extends GetxController {
   }
 
   final String storeUrl = "https://dev-api.arminadaily.id/mobiledev/create/";
-  
+
   //store data
   Future storeData(String name, String email) async {
+    //untuk reload datanya setelah berhasil disimpan
+    await Future.delayed(Duration(seconds: 2));
+    users.add({'users_nm': name, 'users_email': email});
     try {
       final response = await http.post(Uri.parse(storeUrl), headers: {
         'adsignature': '$token',
